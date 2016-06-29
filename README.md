@@ -4,7 +4,7 @@ This widget gives you the means to create a carousel similar to the style of boo
 
 Authors
 ----
-Eric Tieniber - [github](https://github.com/simonmartyr)
+Eric Tieniber - [github](https://github.com/tieniber)
 
 Based on a widget by:
 Simon Martyr -  [email](mailto:simon.martyr@finaps.nl)   - [github](https://github.com/simonmartyr)
@@ -35,7 +35,7 @@ Features
 
 Limitations
 ---
- Wrap functionality is currently broken
+
 
 Installation 
 ---
@@ -46,8 +46,6 @@ Installation
 
 Description/configuration (Widget options)
 ---
-
-![options](http://i.imgur.com/n2occmw.png)
 
 
 - Context Object - Whether this widget is in the context of another entity
@@ -62,5 +60,5 @@ Description/configuration (Widget options)
 
 Known bugs
 ---
-Currently known - Please feedback to the author if you encounter any. 
+Wrap functionality is currently broken - always wraps (at least on mobile)
 
