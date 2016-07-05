@@ -173,8 +173,8 @@ define([
         uninitialize: function() {
             var i;
 			// Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
-			for (i = 0; i < this.openForms.length; i++) {
-				this.openForms[i].close();
+			for (i = 0; i < this._openForms.length; i++) {
+				this._openForms[i].close();
 			}
         }
     });
