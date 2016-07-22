@@ -39,7 +39,7 @@ define([
 		carouselForms: null,
 		wrap: true,
 		hasContext: false,
-		
+
         /**
          * Internal variables.
          * === === === === === === === =
@@ -65,7 +65,7 @@ define([
         postCreate: function () {
             console.log('FormCarousel - postCreate');
 			this._openForms = [];
-			
+
 			if (!this.hasContext) {
 				this._loadData();
 			}
@@ -74,11 +74,11 @@ define([
 		update: function(obj, callback) {
             console.log(this.id + ".update");
 			// Setup events
-            
+
 			if (this.hasContext) {
 				this._loadData(callback);
 			} else {
-				callback();	
+				callback();
 			}
 		},
 
@@ -137,6 +137,7 @@ define([
 			for (i = 0; i < this.carouselForms.length; i++) {
 				mx.ui.openForm(this.carouselForms[i].formName, {
 					//location: "content",
+					context: this.mxcontext,
 					domNode: document.getElementById(this.carouselID + '-' + i),
 					callback: lang.hitch(this, function(form) {
 						this._openForms.push(form);
@@ -144,18 +145,19 @@ define([
 					})
 				});
 			}
-			
+
 			if(callback) {callback();}
 		},
-		
+
 		_checkReady: function() {
 			if (this._openForms.length === this.carouselForms.length) {
+				var self = this;
 				if (this.enablescroll) {
 					$(document).ready(function () {
 						$('.carousel').carousel({
 							interval: this.scrollspeed,
 							swipe: 30,
-							wrap: this.wrap
+							wrap: self.wrap
 						});
 					});
 				} else {
@@ -163,13 +165,13 @@ define([
 						$('.carousel').carousel({
 							interval: false,
 							swipe: 30,
-							wrap: this.wrap							
+							wrap: self.wrap
 						});
 					});
 				}
 			}
 		},
-		
+
         uninitialize: function() {
             var i;
 			// Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
