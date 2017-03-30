@@ -10,7 +10,7 @@
 			<caption>Context Object</caption>
 			<category>Customization</category>
 			<description>Whether this widget is in the context of another entity</description>
-		</property>		
+		</property>
 		<property key="controls" type="boolean" defaultValue="true">
 			<caption>Enable Controls</caption>
 			<category>Customization</category>
@@ -30,16 +30,11 @@
 			<caption>Enable Wrap</caption>
 			<category>Customization</category>
 			<description>This toggles whether the carousel wraps back from the last image to the first.</description>
-		</property>		
+		</property>
 		<property key="scrollspeed" type="integer" defaultValue="10000">
 			<caption>Scroll Speed</caption>
 			<category>Customization</category>
 			<description>Lower number higher speed and vice versa (Milseconds)</description>
-		</property>
-		<property key="carouselID" type="string" required="true">
-			<caption>Id</caption>
-			<category>Customization</category>
-			<description>If you use more than one carousel in a page. Please make these different else this will cause errors.</description>
 		</property>
 		<property key="carouselClass" type="string" required="false">
 			<caption>Class For The DIV</caption>
@@ -56,9 +51,8 @@
 				  <caption>Form</caption>
 				  <category>Appearance</category>
 				  <description>Carousel form, should have the same context object as the widget.</description>
-				</property>				
+				</property>
             </properties>
-        </property>		
+        </property>
 	</properties>
 </widget>
-

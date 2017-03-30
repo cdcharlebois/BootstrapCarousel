@@ -114,7 +114,7 @@ define([
 				carouselItem = dojo.cache('FormCarousel.widget.templates', 'item.html');
 				//setup carouselItem
 				carouselItem = carouselItem.split('{{first}}').join(i === 0 ? ' active' : '');
-				carouselItem = carouselItem.split('{{itemIdentifier}}').join(this.carouselID + '-' + i);
+				carouselItem = carouselItem.split('{{itemIdentifier}}').join('CID' + this.id + '-' + i);
 
 				if (i === 0) {
 					listItem = carouselItem;
@@ -129,7 +129,7 @@ define([
 			templateCarousel = templateCarousel.split('{{list}}').join(indicators);
 			templateCarousel = templateCarousel.split('{{showdots}}').join(this.listicons ? '' : 'style="display: none;"');
 			templateCarousel = templateCarousel.split('{{items}}').join(listItem);
-			templateCarousel = templateCarousel.split('{{carouselID}}').join(this.carouselID === '' ? 'widgetCarousel' : this.carouselID);
+			templateCarousel = templateCarousel.split('{{carouselID}}').join('CID' + this.id === '' ? 'widgetCarousel' : 'CID' + this.id);
 			//templateCarousel = templateCarousel.split('{{interval}}').join( this.enablescroll ? this.scollspeed : false);
 			$(this.domNode).html(templateCarousel);
 
@@ -138,7 +138,7 @@ define([
 				mx.ui.openForm(this.carouselForms[i].formName, {
 					//location: "content",
 					context: this.mxcontext,
-					domNode: document.getElementById(this.carouselID + '-' + i),
+					domNode: document.getElementById('CID' + this.id + '-' + i),
 					callback: lang.hitch(this, function(form) {
 						this._openForms.push(form);
 						this._checkReady();
