@@ -136,8 +136,8 @@ define([
 			//run in a separate loop after the main HTML is inserted into the dom
 			for (i = 0; i < this.carouselForms.length; i++) {
 				mx.ui.openForm(this.carouselForms[i].formName, {
-					//location: "content",
 					context: this.mxcontext,
+					location: "node",
 					domNode: document.getElementById('CID' + this.id + '-' + i),
 					callback: lang.hitch(this, function(form) {
 						this._openForms.push(form);
