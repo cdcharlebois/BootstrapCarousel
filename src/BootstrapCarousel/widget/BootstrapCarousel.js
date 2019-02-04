@@ -14,19 +14,22 @@
 
 	Documentation
     ========================
-	Describe your widget here.
+    Describe your widget here.
+    
+    Edited by Viji, Conner, Joe, and Brian 
+    @since Feb 4, 2019
 
 */
 
 define([
     'dojo/_base/declare', 'mxui/widget/_WidgetBase', 'dijit/_TemplatedMixin',
     'mxui/dom', 'dojo/dom', 'dojo/query', 'dojo/dom-prop', 'dojo/dom-geometry', 'dojo/dom-class', 'dojo/dom-style', 'dojo/dom-construct', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/text', 'dojo/html', 'dojo/_base/event',
-    'BootstrapCarousel/widget/lib/jquery-1.11.2.min', 'dojo/text!BootstrapCarousel/widget/templates/BootstrapCarousel.html', 'BootstrapCarousel/widget/lib/bootstrap'
-], function (declare, _WidgetBase, _TemplatedMixin, dom, dojoDom, domQuery, domProp, domGeom, domClass, domStyle, domConstruct, dojoArray, lang, text, html, event, _jQuery, widgetTemplate, bootstrapCar) {
+    'BootstrapCarousel/widget/lib/jquery', 'dojo/text!BootstrapCarousel/widget/templates/BootstrapCarousel.html', "BootstrapCarousel/widget/lib/bootstrap"
+], function (declare, _WidgetBase, _TemplatedMixin, dom, dojoDom, domQuery, domProp, domGeom, domClass, domStyle, domConstruct, dojoArray, lang, text, html, event, _jQuery, widgetTemplate, bootstrap) {
     'use strict';
 
-    var $ = jQuery.noConflict(true);
-
+    var $ = _jQuery.noConflict(true);
+    console.trace(bootstrap);
     // Declare widget.
     return declare('BootstrapCarousel.widget.BootstrapCarousel', [_WidgetBase, _TemplatedMixin], {
 
@@ -43,6 +46,7 @@ define([
         _handle: null,
         // Extra variables
         _extraContentDiv: null,
+        externalLink: null,
 
         // Template path
         // templatePath: require.toUrl('BootstrapCarousel/widget/templates/BootstrapCarousel.html'),
@@ -158,12 +162,13 @@ define([
                         //setup carouselItem
                         carouselItem = carouselItem.split('{{first}}').join(i === 0 ? ' active' : '');
                         if (objs[i].get(path) !== '') {
-                            carouselItem = carouselItem.split('{{img}}').join(window.location.origin + '/file?target=window&guid=' + objs[i].getGuid() +  "&time=" + Date.now());
+                            carouselItem = carouselItem.split('{{img}}').join(window.location.origin + '/file?target=window&guid=' + objs[i].get(path) + "&time=" + Date.now());
                         } else {
                             carouselItem = carouselItem.split('{{img}}').join('data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==');
                         }
                         carouselItem = carouselItem.split('{{altText}}').join(objs[i].get(this.headline));
                         carouselItem = carouselItem.split('{{headline}}').join(objs[i].get(this.headline));
+                        carouselItem = carouselItem.split('{{externalLink}}').join(objs[i].get(this.externalLink));     //Added by Viji Rajaratnam
                         carouselItem = carouselItem.split('{{description}}').join(objs[i].get(this.description));
                         carouselItem = carouselItem.split('{{id}}').join(objs[i].getGuid());
                         carouselItem = carouselItem.split('{{idnumber}}').join(objs[i].getGuid());
@@ -177,7 +182,7 @@ define([
                             carouselItem = carouselItem.split('{{display}}').join('');
 
                         } else {
-                            carouselItem = carouselItem.split('{{display}}').join('style="display:none"');
+                            // carouselItem = carouselItem.split('{{display}}').join('style="display:none"');
                         }
 
                         if (i === 0) {
@@ -195,7 +200,7 @@ define([
                     templateCarousel = templateCarousel.split('{{showdots}}').join(this.listicons ? '' : 'style="display: none;"');
                     templateCarousel = templateCarousel.split('{{items}}').join(listItem);
                     templateCarousel = templateCarousel.split('{{carouselID}}').join(this.carouselID === '' ? 'widgetCarousel' : this.carouselID);
-                    //templateCarousel = templateCarousel.split('{{interval}}').join( this.enablescroll ? this.scollspeed : false);
+                    templateCarousel = templateCarousel.split('{{interval}}').join(this.enablescroll ? this.scollspeed : false);
                     $(this.domNode).html(templateCarousel);
                     if (this.enablescroll) {
                         $(document).ready(function () {
