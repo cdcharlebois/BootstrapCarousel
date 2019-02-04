@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Generated on 2019-02-04 using generator-mendix 2.2.3 :: git+https://github.com/mendix/generator-mendix.git
+=======
+// Generated on 2017-03-30 using generator-mendix 2.0.1 :: git+https://github.com/mendix/generator-mendix.git
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
 /*jshint -W069,-W097*/
 "use strict";
 
@@ -14,22 +18,35 @@ var gulp = require("gulp"),
     del = require("del"),
     newer = require("gulp-newer"),
     gutil = require("gulp-util"),
+<<<<<<< HEAD
     plumber = require("gulp-plumber"),
+=======
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
     gulpif = require("gulp-if"),
     jsonTransform = require("gulp-json-transform"),
     intercept = require("gulp-intercept"),
     argv = require("yargs").argv,
+<<<<<<< HEAD
     widgetBuilderHelper = require("widgetbuilder-gulp-helper"),
     jsValidate = require("gulp-jsvalidate");
+=======
+    widgetBuilderHelper = require("widgetbuilder-gulp-helper");
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
 
 var pkg = require("./package.json"),
     paths = widgetBuilderHelper.generatePaths(pkg),
     xmlversion = widgetBuilderHelper.xmlversion;
 
+<<<<<<< HEAD
 gulp.task("default", ['build'], function() {
     gulp.watch("./src/**/*", ["compress"]);
     gulp.watch("./src/**/*.js", ["copy:js"]);
     gulp.watch("./src/**/*.html", ["copy:html"])
+=======
+gulp.task("default", function() {
+    gulp.watch("./src/**/*", ["compress"]);
+    gulp.watch("./src/**/*.js", ["copy:js"]);
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
 });
 
 gulp.task("clean", function () {
@@ -48,6 +65,7 @@ gulp.task("compress", ["clean"], function () {
 
 gulp.task("copy:js", function () {
     return gulp.src(["./src/**/*.js"])
+<<<<<<< HEAD
         .pipe(plumber(function (error) {
             var msg = gutil.colors.red("Error");
             if (error.fileName) {
@@ -64,6 +82,8 @@ gulp.task("copy:js", function () {
 
 gulp.task("copy:html", function () {
     return gulp.src(["./src/**/*.html"])
+=======
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
         .pipe(newer(paths.TEST_WIDGETS_DEPLOYMENT_FOLDER))
         .pipe(gulp.dest(paths.TEST_WIDGETS_DEPLOYMENT_FOLDER));
 });
@@ -88,7 +108,11 @@ gulp.task("icon", function (cb) {
     console.log("\nUsing this file to create a base64 string: " + gutil.colors.cyan(icon));
     gulp.src(icon)
         .pipe(intercept(function (file) {
+<<<<<<< HEAD
             console.log("\nCopy the following to your " + pkg.name + ".xml (after description):\n\n" + gutil.colors.cyan("<icon>") + file.contents.toString("base64") + gutil.colors.cyan("<\/icon>") + "\n");
+=======
+            console.log("\nCopy the following to your " + pkg.name + ".xml (after description):\n\n" + gutil.colors.cyan("<icon>") + file.contents.toString("base64") + gutil.colors.cyan("<\\icon>") + "\n");
+>>>>>>> d16fd987e7f0a110d7586c4818f6931220fed9d7
             cb();
         }));
 });

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="FormCarousel.widget.FormCarousel" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+	<name>FormCarousel</name>
+	<description>The description of this widget.</description>
+
+	<icon></icon>
+
+	<properties>
+		<property key="hasContext" type="boolean" defaultValue="false">
+			<caption>Context Object</caption>
+			<category>Customization</category>
+			<description>Whether this widget is in the context of another entity</description>
+		</property>
+		<property key="controls" type="boolean" defaultValue="true">
+			<caption>Enable Controls</caption>
+			<category>Customization</category>
+			<description>Show controls on carousel (the two side arrows)</description>
+		</property>
+		<property key="listicons" type="boolean" defaultValue="true">
+			<caption>Show Item Dots</caption>
+			<category>Customization</category>
+			<description>Show list dot icons</description>
+		</property>
+		<property key="enablescroll" type="boolean" defaultValue="true">
+			<caption>Enable Scroll</caption>
+			<category>Customization</category>
+			<description>This toggles the autoscroll functionality</description>
+		</property>
+		<property key="wrap" type="boolean" defaultValue="true">
+			<caption>Enable Wrap</caption>
+			<category>Customization</category>
+			<description>This toggles whether the carousel wraps back from the last image to the first.</description>
+		</property>
+		<property key="scrollspeed" type="integer" defaultValue="10000">
+			<caption>Scroll Speed</caption>
+			<category>Customization</category>
+			<description>Lower number higher speed and vice versa (Milseconds)</description>
+		</property>
+		<property key="carouselClass" type="string" required="false">
+			<caption>Class For The DIV</caption>
+			<category>CSS</category>
+			<description>Give a class to the whole container</description>
+		</property>
+        <!-- This is the list -->
+        <property key="carouselForms" type="object" isList="true" required="false">
+            <caption>Forms</caption>
+            <category>Forms</category>
+            <description>These are the forms to be shown in the carousel.</description>
+            <properties>
+				<property key="formName" type="form">
+				  <caption>Form</caption>
+				  <category>Appearance</category>
+				  <description>Carousel form, should have the same context object as the widget.</description>
+				</property>
+            </properties>
+        </property>
+	</properties>
+</widget>
