@@ -26,6 +26,7 @@ define([
             this._getObjects(templateCarousel)
                 .then(this._setupCarouselItemNodes.bind(this))
                 .then(this._loadForms.bind(this))
+                .then(this._finishCarouselSetup.bind(this))
                 .catch(this._hideCarousel.bind(this));
 
 
@@ -42,6 +43,24 @@ define([
             // }
 
             if (callback) { callback(); }
+        },
+
+        _finishCarouselSetup: function () {
+            return new Promise(function (resolve, reject) {
+                if (this.enablescroll) {
+                    $(this.domNode).find('.carousel').carousel({
+                        interval: this.scrollspeed,
+                        swipe: 30,
+                        wrap: this.wrap
+                    })
+                } else {
+                    $(this.domNode).find('.carousel').carousel({
+                        interval: false,
+                        swipe: 30,
+                        wrap: this.wrap
+                    })
+                }
+            }.bind(this));
         },
 
         _setupCarouselItemNodes: function (objects) {
@@ -89,19 +108,37 @@ define([
 
         _loadForms: function (objects) {
             return new Promise(function (resolve, reject) {
-                for (var i = 0; i < objects.length; i++) {
-                    var ctx = new mendix.lib.MxContext();
-                    ctx.setContext(objects[i]);
-                    mx.ui.openForm(this.formName, {
-                        context: ctx,
-                        location: "node",
-                        domNode: document.getElementById('CID' + this.id + '-' + i),
-                        callback: function (form) {
-                            form.reload();
-                        }.bind(this)
-                    })
-                }
-                resolve();
+                var i = 0;
+                var formsPromises = objects.map(function (obj) {
+                    return new Promise(function (iResolve, iReject) {
+                        var ctx = new mendix.lib.MxContext();
+                        ctx.setContext(obj);
+                        mx.ui.openForm(this.formName, {
+                            context: ctx,
+                            location: "node",
+                            domNode: document.getElementById('CID' + this.id + '-' + i),
+                            callback: function (form) {
+                                form.reload();
+                                iResolve();
+                            }.bind(this)
+                        })
+                        i++;
+                    }.bind(this));
+                }.bind(this))
+                // for (var i = 0; i < objects.length; i++) {
+                //     var ctx = new mendix.lib.MxContext();
+                //     ctx.setContext(objects[i]);
+                //     mx.ui.openForm(this.formName, {
+                //         context: ctx,
+                //         location: "node",
+                //         domNode: document.getElementById('CID' + this.id + '-' + i),
+                //         callback: function (form) {
+                //             form.reload();
+                //         }.bind(this)
+                //     })
+                // }
+                Promise.all(formsPromises).then(resolve)
+                // resolve();
 
             }.bind(this))
         },
