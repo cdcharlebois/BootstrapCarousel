@@ -19,22 +19,22 @@
 */
 
 define([
-    'dojo/_base/declare', 'mxui/widget/_WidgetBase', 'dijit/_TemplatedMixin',
-    'mxui/dom', 'dojo/_base/lang', 'dojo/text', 'dojo/html', 'dojo/_base/event',
-    'FormCarousel/widget/lib/jquery-1.11.2.min',
+	'dojo/_base/declare', 'mxui/widget/_WidgetBase', 'dijit/_TemplatedMixin',
+	'mxui/dom', 'dojo/_base/lang', 'dojo/text', 'dojo/html', 'dojo/_base/event',
+	'FormCarousel/widget/lib/jquery-1.11.2.min',
 	'FormCarousel/widget/lib/bootstrap.min',
 	'FormCarousel/widget/lib/carousel-swipe',
 	'dojo/text!FormCarousel/widget/templates/FormCarousel.html'
 ], function (declare, _WidgetBase, _TemplatedMixin, dom, lang, text, html, event, jquery, bootstrap, touchy, widgetTemplate) {
-    'use strict';
+	'use strict';
 
-    var $ = jquery.noConflict(true);
+	var $ = jquery.noConflict(true);
 
-    // Declare widget.
-    return declare('FormCarousel.widget.FormCarousel', [_WidgetBase, _TemplatedMixin], {
+	// Declare widget.
+	return declare('FormCarousel.widget.FormCarousel', [_WidgetBase, _TemplatedMixin], {
 
-        // _TemplatedMixin will create our dom node using this HTML template.
-        templateString: widgetTemplate,
+		// _TemplatedMixin will create our dom node using this HTML template.
+		templateString: widgetTemplate,
 
 		carouselForms: null,
 		wrap: true,
@@ -44,16 +44,16 @@ define([
          * Internal variables.
          * === === === === === === === =
          */
-        _wgtNode: null,
-        _contextGuid: null,
-        _contextObj: null,
-        _handle: null,
-        // Extra variables
-        _extraContentDiv: null,
+		_wgtNode: null,
+		_contextGuid: null,
+		_contextObj: null,
+		_handle: null,
+		// Extra variables
+		_extraContentDiv: null,
 		_openForms: null,
 
-        // Template path
-        // templatePath: require.toUrl('FormCarousel/widget/templates/FormCarousel.html'),
+		// Template path
+		// templatePath: require.toUrl('FormCarousel/widget/templates/FormCarousel.html'),
 
 
         /**
@@ -61,18 +61,18 @@ define([
          * ======================
          */
 
-        // PostCreate is fired after the properties of the widget are set.
-        postCreate: function () {
-            console.log('FormCarousel - postCreate');
+		// PostCreate is fired after the properties of the widget are set.
+		postCreate: function () {
+			console.log('FormCarousel - postCreate');
 			this._openForms = [];
 
 			if (!this.hasContext) {
 				this._loadData();
 			}
-        },
+		},
 
-		update: function(obj, callback) {
-            console.log(this.id + ".update");
+		update: function (obj, callback) {
+			console.log(this.id + ".update");
 			// Setup events
 
 			if (this.hasContext) {
@@ -86,10 +86,10 @@ define([
          * Interaction widget methods.
          * ======================
          */
-        _loadData: function (callback) {
-            var i, carouselItem, listIndicator, templateCarousel, listItem = '',
-                indicators = '',
-                path;
+		_loadData: function (callback) {
+			var i, carouselItem, listIndicator, templateCarousel, listItem = '',
+				indicators = '',
+				path;
 
 			if (this.controls) {
 				templateCarousel = dojo.cache('FormCarousel.widget.templates', 'FormCarousel.html');
@@ -139,17 +139,17 @@ define([
 					context: this.mxcontext,
 					location: "node",
 					domNode: document.getElementById('CID' + this.id + '-' + i),
-					callback: lang.hitch(this, function(form) {
+					callback: lang.hitch(this, function (form) {
 						this._openForms.push(form);
 						this._checkReady();
 					})
 				});
 			}
 
-			if(callback) {callback();}
+			if (callback) { callback(); }
 		},
 
-		_checkReady: function() {
+		_checkReady: function () {
 			if (this._openForms.length === this.carouselForms.length) {
 				var self = this;
 				if (this.enablescroll) {
@@ -172,16 +172,17 @@ define([
 			}
 		},
 
-        uninitialize: function() {
-            var i;
+		uninitialize: function () {
+			var i;
 			// Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
 			for (i = 0; i < this._openForms.length; i++) {
 				this._openForms[i].close();
 			}
-        }
-    });
+			$(this.domNode).find('.carousel').carousel('dispose');
+		}
+	});
 });
 
 require(['FormCarousel/widget/FormCarousel'], function () {
-    'use strict';
+	'use strict';
 });

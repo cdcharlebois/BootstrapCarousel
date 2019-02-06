@@ -118,6 +118,7 @@ define([
                             location: "node",
                             domNode: document.getElementById('CID' + this.id + '-' + i),
                             callback: function (form) {
+                                this._openForms.push(form);
                                 form.reload();
                                 iResolve();
                             }.bind(this)
