@@ -14,6 +14,7 @@ define([
         formName: null,
 
         _loadData: function (callback) {
+            this._cb = callback;
             var templateCarousel = '';
 
             if (this.controls) {
@@ -27,6 +28,12 @@ define([
                 .then(this._setupCarouselItemNodes.bind(this))
                 .then(this._loadForms.bind(this))
                 .then(this._finishCarouselSetup.bind(this))
+                .then(function () {
+                    return new Promise(function (resolve) {
+                        if (this._cb) { this._cb(); }
+                        resolve();
+                    }.bind(this))
+                }.bind(this))
                 .catch(this._hideCarousel.bind(this));
 
 
@@ -42,7 +49,7 @@ define([
             //     });
             // }
 
-            if (callback) { callback(); }
+
         },
 
         _finishCarouselSetup: function () {
@@ -168,6 +175,7 @@ define([
             return new Promise(function (resolve) {
                 console.warn(err);
                 this.domNode.style.display = "none";
+                if (this._cb) { this._cb(); }
             }.bind(this));
         }
     })

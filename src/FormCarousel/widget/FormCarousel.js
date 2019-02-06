@@ -178,7 +178,7 @@ define([
 			for (i = 0; i < this._openForms.length; i++) {
 				this._openForms[i].close();
 			}
-			$(this.domNode).find('.carousel').carousel('dispose');
+			// $(this.domNode).find('.carousel').carousel('dispose');
 		}
 	});
 });
