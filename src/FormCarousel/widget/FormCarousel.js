@@ -176,7 +176,7 @@ define([
 			var i;
 			// Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
 			for (i = 0; i < this._openForms.length; i++) {
-				this._openForms[i].close();
+				this._openForms[i].destroy();
 			}
 			// $(this.domNode).find('.carousel').carousel('dispose');
 		}
